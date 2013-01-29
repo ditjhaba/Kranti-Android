@@ -51,8 +51,8 @@ public class CaptureIssueActivity extends Activity {
         EditText title = (EditText) findViewById(R.id.titleText);
         String title1 =  title.getText().toString();
         String description1 =  description.getText().toString();
-        Location location = gpsLocation.getLocation();
-        issueRepository.createIssue(title1, description1);
+        String location = gpsLocation.getLocationByString();
+        issueRepository.createIssue(title1, description1, location);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }

@@ -14,6 +14,7 @@ public class DataStorage extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "issues";
     private static final String TITLE_COL = "title";
     private static final String DESCRIPTION_COL = "description";
+    private static final String LOCATION_COL = "location";
     private static final String DB_NAME = "kranti.db";
 
     public DataStorage(Context context) {
@@ -22,13 +23,14 @@ public class DataStorage extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + _ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITLE_COL
-            + " TEXT NOT NULL ," + DESCRIPTION_COL + " TEXT );";
+            + " TEXT NOT NULL ," + DESCRIPTION_COL + " TEXT, " + LOCATION_COL + " TEXT );";
 
     public void store(Issue issue) {
         SQLiteDatabase db = getWritableDatabase();
-        SQLiteStatement statement = db.compileStatement("insert into " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + ") values ( ?, ? )");
+        SQLiteStatement statement = db.compileStatement("insert into " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + "," + LOCATION_COL + ") values ( ?, ?, ? )");
         statement.bindString(1, issue.getTitle());
         statement.bindString(2, issue.getDescription());
+        statement.bindString(3, issue.getLocation());
         statement.executeInsert();
     }
 

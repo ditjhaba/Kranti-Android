@@ -20,7 +20,8 @@ public class GPSLocation {
         locManager.requestLocationUpdates(provider, 400, 1, locListener);
     }
 
-    public Location getLocation(){
-        return locManager.getLastKnownLocation(provider);
+    public String getLocationByString(){
+        Location location = locManager.getLastKnownLocation(provider);
+        return location.getLatitude() + "," + location.getLongitude();
     }
 }

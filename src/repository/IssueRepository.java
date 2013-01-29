@@ -11,8 +11,8 @@ public class IssueRepository {
         dataStorage = new DataStorage(context);
 
     }
-    public void createIssue(String title, String description) {
-        Issue issue = new Issue(title,description);
+    public void createIssue(String title, String description, String location) {
+        Issue issue = new Issue(title,description, location);
         dataStorage.store(issue);
     }
 }
