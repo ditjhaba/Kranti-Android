@@ -1,10 +1,10 @@
 package com.change.kranti;
 
-import android.test.ActivityInstrumentationTestCase2;
-public class MyActivityTest extends ActivityInstrumentationTestCase2<MyActivity> {
+public class MyActivityTest extends BaseActivityTest {
 
     public MyActivityTest() {
-        super("com.change.kranti", MyActivity.class);
+        super(MyActivity.class);
     }
+
 
 }
