@@ -49,5 +49,7 @@ public class CaptureIssueActivity extends Activity {
         String title1 =  title.getText().toString();
         String description1 =  description.getText().toString();
         issueRepository.createIssue(title1, description1);
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
