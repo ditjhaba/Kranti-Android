@@ -15,5 +15,20 @@
             android:background="@drawable/camera_icon"
             android:onClick="captureIssueImage" />
 
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleText" android:layout_gravity="left|center_vertical" android:hint="Title"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/descriptionText" android:layout_gravity="left|center_vertical" android:hint="Description"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:onClick="submit"
+            android:id="@+id/submitButton" android:layout_gravity="left|center_vertical"/>
+
 </LinearLayout>
 
