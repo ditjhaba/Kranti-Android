@@ -2,6 +2,8 @@ bin
 gen
 .idea
 ant.propeties
-Kranti.iml
 local.properties
-test.iml
+*.iml
+out
+*.ipr
+*.iws
