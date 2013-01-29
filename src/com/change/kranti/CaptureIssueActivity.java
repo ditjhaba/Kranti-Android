@@ -3,6 +3,7 @@ package com.change.kranti;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -11,18 +12,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import repository.IssueRepository;
+import com.kranti.location.GPSLocation;
 
 import java.io.File;
 
 public class CaptureIssueActivity extends Activity {
     private static int count = 0;
     private IssueRepository issueRepository;
-
+    private GPSLocation gpsLocation;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         issueRepository = new IssueRepository(getApplicationContext());
         setContentView(R.layout.main);
+        gpsLocation = new GPSLocation(this);
     }
 
     public void captureIssueImage(View view) {
@@ -48,6 +51,7 @@ public class CaptureIssueActivity extends Activity {
         EditText title = (EditText) findViewById(R.id.titleText);
         String title1 =  title.getText().toString();
         String description1 =  description.getText().toString();
+        Location location = gpsLocation.getLocation();
         issueRepository.createIssue(title1, description1);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
