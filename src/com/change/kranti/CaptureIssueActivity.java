@@ -3,7 +3,6 @@ package com.change.kranti;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -18,7 +17,6 @@ import java.io.*;
 public class CaptureIssueActivity extends Activity {
     private static int count = 0;
     private static final int IMAGE_CAPTURE = 0;
-    private Uri imageUri;
     private IssueRepository issueRepository;
     private GPSLocation gpsLocation;
     private Intent ImageData;
@@ -53,7 +51,7 @@ public class CaptureIssueActivity extends Activity {
         return issueImageBitmap;
     }
 
-    private void storeImage() {
+    private String storeImage() {
         fileName = "Issue_" + count++ + ".png";
         Toast.makeText(this, "Issue Image was captured", Toast.LENGTH_LONG).show();
         File outputFile = new File(createDirectory(), fileName);
@@ -64,11 +62,13 @@ public class CaptureIssueActivity extends Activity {
             outputFile.createNewFile();
             FileOutputStream stream = new FileOutputStream(outputFile);
             stream.write(imageBytes.toByteArray());
-
+            return outputFile.getPath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -79,14 +79,19 @@ public class CaptureIssueActivity extends Activity {
     }
 
     public void submit(View view) {
+        String imagePath = null;
         if(ImageData!=null)
-            storeImage();
+             imagePath = storeImage();
+        if(imagePath.equals(null)){
+            Toast.makeText(this, "Issue could not be stored", Toast.LENGTH_LONG).show();
+            return;
+        }
         EditText description = (EditText) findViewById(R.id.descriptionText);
         EditText title = (EditText) findViewById(R.id.titleText);
         String title1 =  title.getText().toString();
         String description1 =  description.getText().toString();
-        String location = gpsLocation.getLocationByString();
-        issueRepository.createIssue(title1, description1, location);
+        String location = "location";
+        issueRepository.createIssue(title1, description1, location, imagePath);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }

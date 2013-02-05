@@ -10,27 +10,31 @@ import static android.provider.BaseColumns._ID;
 
 
 public class DataStorage extends SQLiteOpenHelper {
-    static DataStorage dataStorage;
     private static final String TABLE_NAME = "issues";
     private static final String TITLE_COL = "title";
     private static final String DESCRIPTION_COL = "description";
     private static final String LOCATION_COL = "location";
     private static final String DB_NAME = "kranti.db";
+    private static final String IMAGEPATH_COL = "imagepath";
 
     public DataStorage(Context context) {
         super(context, DB_NAME, null, 1);
     }
 
-    private static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + _ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITLE_COL
-            + " TEXT NOT NULL ," + DESCRIPTION_COL + " TEXT, " + LOCATION_COL + " TEXT );";
+    private static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" +
+            _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TITLE_COL + " TEXT NOT NULL ," +
+            DESCRIPTION_COL + " TEXT, " +
+            LOCATION_COL + " TEXT, "+
+            IMAGEPATH_COL+" TEXT );";
 
     public void store(Issue issue) {
         SQLiteDatabase db = getWritableDatabase();
-        SQLiteStatement statement = db.compileStatement("insert into " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + "," + LOCATION_COL + ") values ( ?, ?, ? )");
+        SQLiteStatement statement = db.compileStatement("insert into " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + "," + LOCATION_COL + ","+ IMAGEPATH_COL +") values ( ?, ?, ?, ?)");
         statement.bindString(1, issue.getTitle());
         statement.bindString(2, issue.getDescription());
         statement.bindString(3, issue.getLocation());
+        statement.bindString(4, issue.getImagePath());
         statement.executeInsert();
     }
 
