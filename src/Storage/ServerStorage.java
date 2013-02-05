@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -19,23 +19,26 @@ import java.util.List;
 
 public class ServerStorage extends AsyncTask<String, Void, String> {
 
-
     private Issue issue;
-
     @Override
     protected String doInBackground(String... params) {
-        return "kranti-api.herokuapp.com";
+        return reportIssue();
     }
 
-    public String response(String url) {
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        System.out.println("********CALL STARTED***********");
+    }
+
+    public String reportIssue() {
         HttpClient httpClient = new DefaultHttpClient();
+        String url = "http://kranti-api.herokuapp.com/issues";
         HttpPost httpPost = new HttpPost(url);
         String result = null;
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("issue[title]",issue.getTitle()));
-        nameValuePairs.add(new BasicNameValuePair("issue[description]", issue.getDescription()));
+        List<NameValuePair> nameValuePairs = generatePostParams();
         try {
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -45,6 +48,7 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
             StatusLine statusLine = httpResponse.getStatusLine();
             int statusCode = statusLine.getStatusCode();
             if (statusCode >= 200 && statusCode <= 210) {
+                System.out.println("********SUCCESS*************");
                 HttpEntity httpEntity = httpResponse.getEntity();
                 InputStream content = httpEntity.getContent();
                 result = toString(content);
@@ -56,10 +60,18 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
         return result;
     }
 
+    private List<NameValuePair> generatePostParams() {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("issue[title]",issue.getTitle()));
+        nameValuePairs.add(new BasicNameValuePair("issue[description]", issue.getDescription()));
+        nameValuePairs.add(new BasicNameValuePair("issue[location]", issue.getLocation()));
+        return nameValuePairs;
+    }
 
     @Override
     protected void onPostExecute(String resultString) {
         super.onPostExecute(resultString);
+        System.out.println("******CALL COMPLETE***********");
     }
 
     private String toString(InputStream content) {
@@ -77,7 +89,7 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
     }
 
     public void store(Issue issue) {
-
         this.issue = issue;
+        execute();
     }
 }
