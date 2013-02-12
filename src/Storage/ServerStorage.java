@@ -20,6 +20,7 @@ import java.util.List;
 public class ServerStorage extends AsyncTask<String, Void, String> {
 
     private Issue issue;
+
     @Override
     protected String doInBackground(String... params) {
         return reportIssue();
@@ -47,6 +48,7 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
             HttpResponse httpResponse = httpClient.execute(httpPost);
             StatusLine statusLine = httpResponse.getStatusLine();
             int statusCode = statusLine.getStatusCode();
+            System.out.println("******STATUS CODE ********" + statusCode);
             if (statusCode >= 200 && statusCode <= 210) {
                 System.out.println("********SUCCESS*************");
                 HttpEntity httpEntity = httpResponse.getEntity();
@@ -62,7 +64,7 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
 
     private List<NameValuePair> generatePostParams() {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("issue[title]",issue.getTitle()));
+        nameValuePairs.add(new BasicNameValuePair("issue[title]", issue.getTitle()));
         nameValuePairs.add(new BasicNameValuePair("issue[description]", issue.getDescription()));
         nameValuePairs.add(new BasicNameValuePair("issue[location]", issue.getLocation()));
         return nameValuePairs;
