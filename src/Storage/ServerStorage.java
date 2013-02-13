@@ -29,7 +29,6 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        System.out.println("********CALL STARTED***********");
     }
 
     public String reportIssue() {
@@ -48,9 +47,7 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
             HttpResponse httpResponse = httpClient.execute(httpPost);
             StatusLine statusLine = httpResponse.getStatusLine();
             int statusCode = statusLine.getStatusCode();
-            System.out.println("******STATUS CODE ********" + statusCode);
             if (statusCode >= 200 && statusCode <= 210) {
-                System.out.println("********SUCCESS*************");
                 HttpEntity httpEntity = httpResponse.getEntity();
                 InputStream content = httpEntity.getContent();
                 result = toString(content);
@@ -73,7 +70,6 @@ public class ServerStorage extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String resultString) {
         super.onPostExecute(resultString);
-        System.out.println("******CALL COMPLETE***********");
     }
 
     private String toString(InputStream content) {
