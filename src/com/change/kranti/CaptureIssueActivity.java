@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.kranti.location.GPSLocation;
 import com.kranti.location.LocationChangeTrigger;
 import repository.IssueRepository;
 
