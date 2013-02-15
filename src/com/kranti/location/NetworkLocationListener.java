@@ -3,9 +3,8 @@ package com.kranti.location;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.widget.Toast;
 
-public class GPSLocationListener implements LocationListener{
+public class NetworkLocationListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {

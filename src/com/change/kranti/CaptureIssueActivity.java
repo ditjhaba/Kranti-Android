@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.kranti.location.GPSLocation;
+import com.kranti.location.LocationChangeTrigger;
 import repository.IssueRepository;
 
 import java.io.*;
@@ -18,7 +19,7 @@ public class CaptureIssueActivity extends Activity {
     private static int count = 0;
     private static final int IMAGE_CAPTURE = 0;
     private IssueRepository issueRepository;
-    private GPSLocation gpsLocation;
+    private LocationChangeTrigger locationTracker;
     private Intent ImageData;
     private String fileName;
 
@@ -27,7 +28,8 @@ public class CaptureIssueActivity extends Activity {
         super.onCreate(savedInstanceState);
         issueRepository = new IssueRepository(getApplicationContext());
         setContentView(R.layout.main);
-        gpsLocation = new GPSLocation(this);
+        locationTracker = new LocationChangeTrigger(this);
+        locationTracker.fetchLatestLocation();
     }
 
     public void captureIssueImage(View view) {
@@ -37,6 +39,7 @@ public class CaptureIssueActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
+
             ImageData = data;
             showImage();
             return;
@@ -88,10 +91,10 @@ public class CaptureIssueActivity extends Activity {
         }
         EditText description = (EditText) findViewById(R.id.descriptionText);
         EditText title = (EditText) findViewById(R.id.titleText);
-        String title1 =  title.getText().toString();
-        String description1 =  description.getText().toString();
-        String location = "location";
-        issueRepository.createIssue(title1, description1, location, imagePath);
+        String issueTitle =  title.getText().toString();
+        String issueDescription =  description.getText().toString();
+
+        issueRepository.createIssue(issueTitle, issueDescription, locationTracker.getLocation(), imagePath);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
