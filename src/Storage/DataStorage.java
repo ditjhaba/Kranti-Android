@@ -1,4 +1,4 @@
-package storage;
+package Storage;
 
 import android.content.Context;
 import android.database.Cursor;
