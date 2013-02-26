@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.kranti.location.LocationChangeTrigger;
 import repository.IssueRepository;
 
 import java.io.*;
@@ -17,7 +18,7 @@ public class CaptureIssueActivity extends Activity {
     private static int count = 0;
     private static final int IMAGE_CAPTURE = 0;
     private IssueRepository issueRepository;
-//    private LocationChangeTrigger locationTracker;
+    private LocationChangeTrigger locationTracker;
     private Intent ImageData;
     private String fileName;
 
@@ -26,8 +27,8 @@ public class CaptureIssueActivity extends Activity {
         super.onCreate(savedInstanceState);
         issueRepository = new IssueRepository(getApplicationContext());
         setContentView(R.layout.main);
-//        locationTracker = new LocationChangeTrigger(this);
-//        locationTracker.fetchLatestLocation();
+        locationTracker = new LocationChangeTrigger(this);
+        locationTracker.fetchLatestLocation();
     }
 
     public void captureIssueImage(View view) {
@@ -92,7 +93,7 @@ public class CaptureIssueActivity extends Activity {
         String issueTitle =  title.getText().toString();
         String issueDescription =  description.getText().toString();
 
-        issueRepository.createIssue(issueTitle, issueDescription, "3,3", imagePath);
+        issueRepository.createIssue(issueTitle, issueDescription, locationTracker.getLocation(), imagePath);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
