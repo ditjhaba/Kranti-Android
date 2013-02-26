@@ -3,11 +3,14 @@ package com.change.kranti;
 import android.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class IssueDetailsActivity extends Activity{
   @Override
@@ -22,8 +25,10 @@ public class IssueDetailsActivity extends Activity{
     String imageUrl = extras.getString(getString(com.change.kranti.R.string.issue_image_url));
     TextView imageTitle = (TextView) findViewById(com.change.kranti.R.id.issue_title);
     imageTitle.setText(title);
+    File issueImageFile = new File(imageUrl);
+    Bitmap issueImageBitmap = BitmapFactory.decodeFile(issueImageFile.getAbsolutePath());
     ImageView issueImageView = (ImageView) findViewById(com.change.kranti.R.id.issue_image);
-    issueImageView.setImageURI(Uri.parse(imageUrl));
+    issueImageView.setImageBitmap(issueImageBitmap);
     TextView issueDescription = (TextView) findViewById(com.change.kranti.R.id.issue_description);
     issueDescription.setText(description);
     TextView issueLocation = (TextView) findViewById(com.change.kranti.R.id.issue_location);
