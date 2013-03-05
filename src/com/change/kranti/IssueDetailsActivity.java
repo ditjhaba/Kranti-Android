@@ -1,12 +1,9 @@
 package com.change.kranti;
 
-import android.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +28,5 @@ public class IssueDetailsActivity extends Activity{
     issueImageView.setImageBitmap(issueImageBitmap);
     TextView issueDescription = (TextView) findViewById(com.change.kranti.R.id.issue_description);
     issueDescription.setText(description);
-    TextView issueLocation = (TextView) findViewById(com.change.kranti.R.id.issue_location);
-    issueLocation.setText(location);
   }
 }
