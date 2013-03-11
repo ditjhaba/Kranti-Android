@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.change.kranti.adapters.ViewIssuesAdapter;
 import model.Issue;
 import repository.IssueRepository;
 
@@ -28,9 +29,7 @@ public class ViewIssuesActivity extends ListActivity{
     issueRepository = new IssueRepository(getApplicationContext());
     List<Issue> issues = new ArrayList<Issue>();
     issues = issueRepository.getIssues();
-    ArrayAdapter<Issue> adapter = new ArrayAdapter<Issue>(this,
-      android.R.layout.simple_list_item_1, issues);
-
+    ArrayAdapter<Issue> adapter = new ViewIssuesAdapter(this, com.change.kranti.R.layout.issue_item, com.change.kranti.R.id.title, issues);
     setListAdapter(adapter);
   }
 
