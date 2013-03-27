@@ -1,15 +1,9 @@
 package Storage;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
-import android.provider.ContactsContract;
 import model.Issue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.provider.BaseColumns._ID;
 
@@ -34,13 +28,7 @@ public class DataStorage extends SQLiteOpenHelper {
             IMAGEPATH_COL+" TEXT );";
 
     public void store(Issue issue) {
-        SQLiteDatabase db = getWritableDatabase();
-        SQLiteStatement statement = db.compileStatement("insert into " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + "," + LOCATION_COL + ","+ IMAGEPATH_COL +") values ( ?, ?, ?, ?)");
-        statement.bindString(1, issue.getTitle());
-        statement.bindString(2, issue.getDescription());
-        statement.bindString(3, issue.getLocation());
-        statement.bindString(4, issue.getImagePath());
-        statement.executeInsert();
+
     }
 
     @Override
@@ -52,42 +40,4 @@ public class DataStorage extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-  public List<Issue> get() {
-    SQLiteDatabase db = getReadableDatabase();
-    Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME , null);
-    List<Issue> issues = new ArrayList<Issue>();
-    if (c != null ) {
-      if  (c.moveToFirst()) {
-        do {
-          String title = c.getString(c.getColumnIndex(TITLE_COL));
-          String description = c.getString(c.getColumnIndex(DESCRIPTION_COL));
-          String location = c.getString(c.getColumnIndex(LOCATION_COL));
-          String imagePath = c.getString(c.getColumnIndex(IMAGEPATH_COL));
-          Issue issue = new Issue(title,description,location,imagePath);
-          issues.add(issue);
-        }while (c.moveToNext());
-      }
-    }
-    return issues;
-  }
-
-  public Issue getIssueDetails() {
-    SQLiteDatabase db = getReadableDatabase();
-    Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME , null);
-    String title, description, location, imagePath;
-    Issue issue = null;
-    List<String> titles = new ArrayList<String>();
-    if (c != null ) {
-      if  (c.moveToFirst()) {
-        do {
-          title = c.getString(c.getColumnIndex(TITLE_COL));
-          description = c.getString(c.getColumnIndex(DESCRIPTION_COL));
-          location = c.getString(c.getColumnIndex(LOCATION_COL));
-          imagePath = c.getString(c.getColumnIndex(IMAGEPATH_COL));
-          issue = new Issue(title,description,location,imagePath);
-        }while (c.moveToNext());
-      }
-    }
-    return issue;
-  }
 }

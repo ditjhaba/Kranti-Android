@@ -5,16 +5,6 @@
               android:background="#ccc"
               android:layout_height="fill_parent" >
 
-    <ImageButton
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/issue_image_capture"
-            android:layout_width="150dip"
-            android:layout_height="150dip"
-            android:layout_gravity="center"
-            android:layout_margin="2dp"
-            android:background="@drawable/camera_icon"
-            android:onClick="captureIssueImage" />
-
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -5,8 +5,6 @@ import Storage.ServerStorage;
 import android.content.Context;
 import model.Issue;
 
-import java.util.List;
-
 public class IssueRepository {
     private DataStorage dataStorage;
     private ServerStorage serverStorage;
@@ -21,7 +19,5 @@ public class IssueRepository {
         dataStorage.store(issue);
         serverStorage.store(issue);
     }
-    public List<Issue> getIssues() {
-      return dataStorage.get();
-    }
+
 }

@@ -81,19 +81,14 @@ public class CaptureIssueActivity extends Activity {
     }
 
     public void submit(View view) {
-        String imagePath = null;
-        if(ImageData!=null)
-             imagePath = storeImage();
-        if(imagePath.equals(null)){
-            Toast.makeText(this, "Issue could not be stored", Toast.LENGTH_LONG).show();
-            return;
-        }
+
         EditText description = (EditText) findViewById(R.id.descriptionText);
         EditText title = (EditText) findViewById(R.id.titleText);
         String issueTitle =  title.getText().toString();
         String issueDescription =  description.getText().toString();
 
-        issueRepository.createIssue(issueTitle, issueDescription, locationTracker.getLocation(), imagePath);
+        String imagePath = null;
+      issueRepository.createIssue(issueTitle, issueDescription, locationTracker.getLocation(), imagePath);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
