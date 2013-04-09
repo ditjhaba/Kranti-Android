@@ -25,7 +25,7 @@ public class DataStorage extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" +
             _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            DESCRIPTION_COL + " TEXT;";
+            DESCRIPTION_COL + " TEXT);";
 
     public void store(Issue issue) {
         SQLiteDatabase db = getWritableDatabase();
@@ -51,7 +51,7 @@ public class DataStorage extends SQLiteOpenHelper {
       if  (c.moveToFirst()) {
         do {
           String description = c.getString(c.getColumnIndex(DESCRIPTION_COL));
-          Issue issue = new Issue(null,description,null,null);
+          Issue issue = new Issue(null,description);
           issues.add(issue);
         }while (c.moveToNext());
       }
@@ -69,7 +69,7 @@ public class DataStorage extends SQLiteOpenHelper {
       if  (c.moveToFirst()) {
         do {
           title = c.getString(c.getColumnIndex(TITLE_COL));
-          issue = new Issue(title,null,null,null);
+          issue = new Issue(title,null);
         }while (c.moveToNext());
       }
     }

@@ -26,17 +26,19 @@ public class ViewIssuesActivity extends ListActivity{
       issues = issueRepository.getIssues();
       ArrayAdapter<Issue> adapter = new ViewIssuesAdapter(this, com.change.kranti.R.layout.issue_item, com.change.kranti.R.id.title, issues);
       setListAdapter(adapter);
+//      ArrayAdapter<Issue> adapter = new ArrayAdapter<Issue>(this,
+//              android.R.layout.simple_list_item_1, issues);
+//      setListAdapter(adapter);
   }
 
     @Override
     protected void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
+        System.out.println("fjj***************************");
         Issue issue = (Issue)listView.getAdapter().getItem(position);
         Intent intent = new Intent(getApplicationContext(), IssueDetailsActivity.class);
         intent.putExtra(getString(com.change.kranti.R.string.issue_title), issue.getTitle());
         intent.putExtra(getString(com.change.kranti.R.string.issue_description), issue.getDescription());
-        intent.putExtra(getString(com.change.kranti.R.string.issue_location), issue.getLocation());
-        intent.putExtra(getString(com.change.kranti.R.string.issue_image_url), issue.getImagePath());
         startActivity(intent);
 
     }

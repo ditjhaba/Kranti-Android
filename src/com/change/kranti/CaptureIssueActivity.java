@@ -57,8 +57,7 @@ public class CaptureIssueActivity extends Activity {
         String issueTitle =  title.getText().toString();
         String issueDescription =  description.getText().toString();
 
-        String imagePath = null;
-      issueRepository.createIssue(issueTitle, issueDescription, locationTracker.getLocation(), imagePath);
+      issueRepository.createIssue(issueTitle, issueDescription);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }

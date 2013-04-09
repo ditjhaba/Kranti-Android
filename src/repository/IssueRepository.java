@@ -1,7 +1,6 @@
 package repository;
 
 import Storage.DataStorage;
-import Storage.ServerStorage;
 import android.content.Context;
 import model.Issue;
 
@@ -12,10 +11,10 @@ public class IssueRepository {
 
   public IssueRepository(Context context) {
         dataStorage = new DataStorage(context);
-
     }
-    public void createIssue(String title, String description, String location, String imagePath) {
-        Issue issue = new Issue(title,description, location, imagePath);
+
+    public void createIssue(String title, String description) {
+        Issue issue = new Issue(title,description);
         dataStorage.store(issue);
     }
     public List<Issue> getIssues() {
