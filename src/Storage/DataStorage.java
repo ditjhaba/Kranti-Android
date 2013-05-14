@@ -32,20 +32,8 @@ public class DataStorage extends SQLiteOpenHelper {
     public void store(Issue issue) { //insert into your database
     }
 
-    public List<Issue> get() {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        List<Issue> issues = new ArrayList<Issue>();
-        if (c != null) {
-            if (c.moveToFirst()) {
-                do {
-                    String description = c.getString(c.getColumnIndex(DESCRIPTION_COL));
-                    Issue issue = new Issue(null, description);
-                    issues.add(issue);
-                } while (c.moveToNext());
-            }
-        }
-        return issues;
-    }
+//    public List<Issue> get() {
+//
+//    }
 
 }
