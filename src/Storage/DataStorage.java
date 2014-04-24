@@ -1,10 +1,15 @@
 package Storage;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import model.Issue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.provider.BaseColumns._ID;
 
 
@@ -29,7 +34,7 @@ public class DataStorage extends SQLiteOpenHelper {
 
     public void store(Issue issue) {
         SQLiteDatabase db = getWritableDatabase();
-        SQLiteStatement statement = db.compileStatement("insert into " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + ") values ( ?, ? )");
+        SQLiteStatement statement = db.compileStatement("INSERT INTO " + TABLE_NAME + " (" + TITLE_COL + "," + DESCRIPTION_COL + ") VALUES ( ?, ? )");
         statement.bindString(1, issue.getTitle());
         statement.bindString(2, issue.getDescription());
         statement.executeInsert();
@@ -39,8 +44,20 @@ public class DataStorage extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-//    public List<Issue> get() {
-//
-//    }
-
+    public List<Issue> get() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        List<Issue> issues = new ArrayList<Issue>();
+        if (cursor != null){
+            if (cursor.moveToFirst()){
+                do{
+                    String title = cursor.getString(cursor.getColumnIndex(TITLE_COL));
+                    String description = cursor.getString(cursor.getColumnIndex(DESCRIPTION_COL));
+                    Issue issue = new Issue(title, description);
+                    issues.add(issue);
+                }while (cursor.moveToLast());
+            }
+        }
+        return issues;
+    }
 }
