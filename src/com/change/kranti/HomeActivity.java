@@ -16,4 +16,9 @@ public class HomeActivity extends Activity {
         Intent intent = new Intent(this, CaptureIssueActivity.class);
         startActivity(intent);
     }
+
+    public void viewIssues(View view){
+        Intent intent = new Intent(this, ViewIssuesActivity.class);
+        startActivity(intent);
+    }
 }

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View issues"
-            android:onClick="viewIssue"
+            android:onClick="viewIssues"
             android:id="@+id/viewIssuesButton" android:layout_gravity="center"/>
 
 </LinearLayout>
