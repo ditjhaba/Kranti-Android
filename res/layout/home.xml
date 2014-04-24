@@ -11,5 +11,11 @@
             android:text="Report an issue"
             android:onClick="reportIssue"
             android:id="@+id/issueButton" android:layout_gravity="center"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View issues"
+            android:onClick="viewIssue"
+            android:id="@+id/viewIssuesButton" android:layout_gravity="center"/>
 
 </LinearLayout>
